@@ -1,9 +1,11 @@
-const render = () => {
+let pessoas = [];
+
+const renderLista = () => {
   // pega o elemento tbody id="tpessoas"
   const tbpessoas = document.querySelector("#tpessoas");
 
   // Pega todas as pessoas cadastradas no LS
-  const pessoas = obterDadosPessoasLS();
+  pessoas = obterDadosPessoasLS();
 
   pessoas.forEach((pessoa) => {
     // cria o elemento <tr>
@@ -20,12 +22,12 @@ const render = () => {
     // crio o conteúdo de cada <td>
     const tdIdTxt = document.createTextNode(pessoa.id);
     const tdNomeTxt = document.createTextNode(pessoa.nome);
-    const tdTelefoneTxt = document.createTextNode(pessoa.endereco);
+    const tdTelefoneTxt = document.createTextNode(pessoa.telefone);
     const aEditTxt = document.createTextNode("Editar");
     const aDeleteTxt = document.createTextNode("Excluir");
 
     // crio o atributo href="#"
-    aEdit.setAttribute("href", "#");
+    aEdit.setAttribute("href", "./edit.html?id=" + pessoa.id);
     aDelete.setAttribute("href", "#");
 
     // Adiciona os textos aos elementos
@@ -68,8 +70,9 @@ const obterDadosForm = () => {
     telefone: dados[2].value,
     email: dados[3].value,
     dataNascimento: dados[4].value,
+    id: dados[5].value,
   };
-  console.log(pessoa);
+ 
   return pessoa;
 };
 
@@ -80,20 +83,57 @@ const formatarDados = () => {
   pessoa.nome = pessoa.nome.toUpperCase();
   pessoa.endereco = pessoa.endereco.toUpperCase();
   pessoa.email = pessoa.email.toLocaleLowerCase();
-  pessoa.id = obterProximoIdLS();
 
   return pessoa;
 };
 
+
 // Salva os dados no LocalStorage
 const salvarDados = () => {
-  const pessoa = formatarDados();
-  const pessoas = obterDadosPessoasLS();
+  const novaPessoa = formatarDados();
 
-  pessoas.push(pessoa);
+  if (novaPessoa.id) {
+    pessoas = pessoas.map((p) => {  
+      if ((p.id == novaPessoa.id)) {
+        p = novaPessoa
+      };
+      return p;
+    });
+
+  } 
+  else {
+    novaPessoa.id = obterProximoIdLS();
+    pessoas.push(novaPessoa);
+    localStorage.setItem("id", obterProximoIdLS() + 1);
+  }
 
   localStorage.setItem("pessoas", JSON.stringify(pessoas));
-  localStorage.setItem("id", ++pessoa.id);
 
   window.location = "./index.html";
+};
+
+// Pega o id do usuario na url
+const obterIdUrl = () => {
+  const id = new URLSearchParams(window.location.search).get("id");
+  return id;
+};
+
+// pega os dados da pessoa pelo id
+const pegarDadosPessoaPorId = () => {
+  const id = obterIdUrl();
+  const pessoa = pessoas.find((p) => p.id == id);
+
+  return pessoa;
+};
+
+const renderForm = () => {
+  const inputs = document.getElementsByTagName("input");
+  const pessoa = pegarDadosPessoaPorId();
+
+  inputs[0].value = pessoa.nome;
+  inputs[1].value = pessoa.endereco;
+  inputs[2].value = pessoa.telefone;
+  inputs[3].value = pessoa.email;
+  inputs[4].value = pessoa.dataNascimento;
+  inputs[5].value = pessoa.id;
 };
