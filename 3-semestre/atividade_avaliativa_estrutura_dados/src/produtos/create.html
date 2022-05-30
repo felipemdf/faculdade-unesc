@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div id="main">
-        <h1>Criar Pessoa</h1>
+        <h1>Criar Produtos</h1>
         <div id="form">
-            <div id="nome">
+            <div id="Nome">
                 <input type="text" id="inNome" placeholder="Nome">
             </div>
-            <div id="end">
-                <input type="text" id="inEnd" placeholder="Endereço">
+            <div id="Marca">
+                <input type="text" id="inMarca" placeholder="Marca">
             </div>
-            <div id="tel">
-                <input type="text" id="inTel" placeholder="Telefone">
+            <div id="Valor">
+                <input type="number" id="inValor" placeholder="Valor">
             </div>
-            <div id="email">
-                <input type="email" id="inEmail" placeholder="Email">
-            </div>
-            <div id="dtNasc">
-                <input type="date" id="inDtNasc" placeholder="Data de nascimento">
+            <div id="dtId">
+                <input type="hidden" id="inDtId">
             </div>
             <div id="btnSave">
                 <button onclick="salvarDados()" id="inBtnSave">Salvar</button>
@@ -34,4 +33,5 @@
 
     <script src="./pessoas.js"></script>
 </body>
+
 </html>
