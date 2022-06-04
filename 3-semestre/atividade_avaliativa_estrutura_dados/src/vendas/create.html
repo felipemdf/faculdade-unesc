@@ -5,33 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
-    <div id="main">
-        <h1>Criar Pessoa</h1>
-        <div id="form">
-            <div id="nome">
-                <input type="text" id="inNome" placeholder="Nome">
-            </div>
-            <div id="end">
-                <input type="text" id="inEnd" placeholder="Endereço">
-            </div>
-            <div id="tel">
-                <input type="text" id="inTel" placeholder="Telefone">
-            </div>
-            <div id="email">
-                <input type="email" id="inEmail" placeholder="Email">
-            </div>
-            <div id="dtNasc">
-                <input type="date" id="inDtNasc" placeholder="Data de nascimento">
-            </div>
-            <div id="btnSave">
-                <button onclick="salvarDados()" id="inBtnSave">Salvar</button>
-                <a href="./index.html">Voltar</a>
-            </div>
-        </div>
-    </div>
 
-    <script src="./pessoas.js"></script>
+    <h1>Realizar Venda</h1>
+    <div>
+        Selecione o Cliente  
+        <select id="clientes"id="inCli" placeholder="Cliente">
+            <option>Cliente1</option>
+            <option>Cliente2</option>
+            <option>Cliente3</option>
+            <option>Cliente4</option>
+            <option>Cliente5</option>
+        </select>
+    </div>
+    <div>
+        Selecione o Produto
+        <select id="produtos"id="inProd" placeholder="Produto">
+            <option>Produto1</option>
+            <option>Produto2</option>
+            <option>Produto3</option>
+            <option>Produto4</option>
+            <option>Produto5</option>
+        </select>
+    </div>
+    <div>
+        Selecione a Quantia de Produtos
+        <input type="number" id="qnt" placeholder="Quantia">
+    </div>
+    <div>
+        <button>Salvar Venda</button>
+        <a href="./index.html">Voltar</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
 </body>
 </html>
