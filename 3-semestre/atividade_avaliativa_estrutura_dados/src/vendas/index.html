@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pessoas</title>
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
-<body onload="render()">
+<body>
     <div id="main">
-        <h1>Pessoas</h1>
+        <h1>Vendas</h1>
         
         <table>
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>nome</th>
-                    <th>telefone</th>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Produto</th>
+                    <th>Qnt</th>
+                    <th>Valor</th>
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody id="tpessoas">
+            <tbody id="tvendas">
                 
             </tbody>
         </table>
         
         <div id="botoes">
-            <a href="./create.html">Criar Pessoa</a>
+            <a href="./create.html">Realizar Venda</a>
             <a href="../index.html">Voltar</a>
         </div>
     </div>
-    
-    <script src="./pessoas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script src="./vendas.js"></script>
 </body>
 </html>
