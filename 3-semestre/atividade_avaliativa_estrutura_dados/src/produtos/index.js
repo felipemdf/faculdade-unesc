@@ -16,19 +16,20 @@ const renderLista = () => {
         const tdNome = document.createElement("td");
         const tdMarca = document.createElement("td");
         const tdValor = document.createElement("td");
+        const tdAcoes = document.createElement("td");
         const aEdit = document.createElement("a");
         const aDelete = document.createElement("a");
 
         // crio o conteúdo de cada <td>
         const tdIdTxt = document.createTextNode(produto.id);
-        const tdNomeTxt = document.createTextNode(produto.Nome);
-        const tdMarcaTxt = document.createTextNode(produto.Marca);
-        const tdValorTxt = document.createTextNode(produto.Valor);
+        const tdNomeTxt = document.createTextNode(produto.nome);
+        const tdMarcaTxt = document.createTextNode(produto.marca);
+        const tdValorTxt = document.createTextNode(produto.valor);
         const aEditTxt = document.createTextNode("Editar");
         const aDeleteTxt = document.createTextNode("Excluir");
 
         // crio o atributo href="#"
-        aEdit.setAttribute("href", "./edit.html?id=" + pessoa.id);
+        aEdit.setAttribute("href", "./edit.html?id=" + produto.id);
         aEdit.setAttribute("class", "btn btn-warning");
         aDelete.setAttribute("href", "#");
         aDelete.setAttribute("class", "btn btn-danger ms-3");
@@ -61,8 +62,8 @@ const obterDadosProdutosLS = () => {
     return produtos;
 };
 
-const obterProximoIdLS = () => {
-    const id = parseInt(localStorage.getItem("id")) || 0;
+const obterIdAtualLS = () => {
+    const id = parseInt(localStorage.getItem("idProduto")) || 0;
     return id;
 };
 
@@ -70,9 +71,9 @@ const obterProximoIdLS = () => {
 const obterDadosForm = () => {
     const dados = document.getElementsByTagName("input");
     const produtos = {
-        Nome: dados[0].value,
-        Marca: dados[1].value,
-        Valor: dados[2].value,
+        nome: dados[0].value,
+        marca: dados[1].value,
+        valor: dados[2].value,
         id: dados[3].value,
     };
 
@@ -83,9 +84,8 @@ const obterDadosForm = () => {
 const formatarDados = () => {
     const produtos = obterDadosForm();
 
-    produtos.Nome = produtos.Nome.toUpperCase();
-    produtos.Marca = produtos.Marca.toUpperCase();
-    produtos.Valor = produtos.Valor.toLocaleLowerCase();
+    produtos.nome = produtos.nome.toUpperCase();
+    produtos.marca = produtos.marca.toUpperCase();
 
     return produtos;
 };
@@ -104,9 +104,9 @@ const salvarDados = () => {
         });
 
     } else {
-        novoProduto.id = obterProximoIdLS();
+        novoProduto.id = obterIdAtualLS();
         produtos.push(novoProduto);
-        localStorage.setItem("id", obterProximoIdLS() + 1);
+        localStorage.setItem("idProduto", obterIdAtualLS() + 1);
     }
 
     localStorage.setItem("produtos", JSON.stringify(produtos));
@@ -122,6 +122,8 @@ const obterIdUrl = () => {
 
 // pega os dados dos produtos pelo id
 const pegarDadosProdutosPorId = () => {
+    console.log("Log pegar dados dos produtos pelo id");
+    console.log(produtos);
     const id = obterIdUrl();
     const produto = produtos.find((p) => p.id == id);
 
@@ -129,11 +131,12 @@ const pegarDadosProdutosPorId = () => {
 };
 
 const renderForm = () => {
+    produtos = obterDadosProdutosLS();
     const inputs = document.getElementsByTagName("input");
     const produto = pegarDadosProdutosPorId();
 
-    inputs[0].value = produto.Nome;
-    inputs[1].value = produto.Marca;
-    inputs[2].value = produto.Valor;
+    inputs[0].value = produto.nome;
+    inputs[1].value = produto.marca;
+    inputs[2].value = produto.valor;
     inputs[3].value = produto.id;
 };

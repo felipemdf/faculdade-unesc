@@ -58,8 +58,8 @@ const obterDadosPessoasLS = () => {
   return pessoas;
 };
 
-const obterProximoIdLS = () => {
-  const id = parseInt(localStorage.getItem("id")) || 0;
+const obterIdAtualLS = () => {
+  const id = parseInt(localStorage.getItem("idPessoa")) || 0;
   return id;
 };
 
@@ -104,9 +104,9 @@ const salvarDados = () => {
 
   } 
   else {
-    novaPessoa.id = obterProximoIdLS();
+    novaPessoa.id = obterIdAtualLS();
     pessoas.push(novaPessoa);
-    localStorage.setItem("id", obterProximoIdLS() + 1);
+    localStorage.setItem("idPessoa", obterIdAtualLS() + 1);
   }
 
   localStorage.setItem("pessoas", JSON.stringify(pessoas));
@@ -129,6 +129,7 @@ const pegarDadosPessoaPorId = () => {
 };
 
 const renderForm = () => {
+  pessoas = obterDadosPessoasLS();
   const inputs = document.getElementsByTagName("input");
   const pessoa = pegarDadosPessoaPorId();
 
