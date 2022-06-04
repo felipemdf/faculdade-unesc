@@ -26,9 +26,11 @@ const renderLista = () => {
     const aEditTxt = document.createTextNode("Editar");
     const aDeleteTxt = document.createTextNode("Excluir");
 
-    // crio o atributo href="#"
+    // crio o atributo atributos
     aEdit.setAttribute("href", "./edit.html?id=" + pessoa.id);
+    aEdit.setAttribute("class", "btn btn-warning");
     aDelete.setAttribute("href", "#");
+    aDelete.setAttribute("class", "btn btn-danger ms-3");
 
     // Adiciona os textos aos elementos
     tdId.append(tdIdTxt);

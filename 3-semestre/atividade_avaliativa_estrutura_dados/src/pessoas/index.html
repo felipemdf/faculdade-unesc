@@ -4,15 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pessoas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 
 <body onload="renderLista()">
-    <div id="main">
-        <h1>Pessoas</h1>
+    <div class="container" id="main">
+        <h1 class="text-center mb-4 mt-4">Pessoas</h1>
 
-        <table>
+        <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
@@ -27,11 +29,14 @@
         </table>
 
         <div id="botoes">
-            <a href="./create.html">Criar Pessoa</a>
-            <a href="../index.html">Voltar</a>
+            <a class="btn btn-success" href="./create.html">Criar Pessoa</a>
+            <a class="btn btn-secondary" href="../index.html">Voltar</a>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
     <script src="./index.js"></script>
 </body>
 
