@@ -1,11 +1,23 @@
-let pessoas = [];
+pessoa = {
+  id: null,
+  nome: null,
+  endereco: null,
+  telefone: null,
+  email: null,
+  dataNascimento: null
+}
+const limparTabela = (tabela) => {
+  tabela.innerHTML = ""
+}
 
 const renderLista = () => {
   // pega o elemento tbody id="tpessoas"
   const tbpessoas = document.querySelector("#tpessoas");
 
+  limparTabela(tbpessoas);
+
   // Pega todas as pessoas cadastradas no LS
-  pessoas = obterDadosPessoasLS();
+  const pessoas = obterDadosPessoasLS();
 
   pessoas.forEach((pessoa) => {
     // cria o elemento <tr>
@@ -29,7 +41,7 @@ const renderLista = () => {
     // crio o atributo atributos
     aEdit.setAttribute("href", "./edit.html?id=" + pessoa.id);
     aEdit.setAttribute("class", "btn btn-warning");
-    aDelete.setAttribute("href", "#");
+    aDelete.setAttribute("onclick", "excluirPessoaPorId(" + pessoa.id +")");
     aDelete.setAttribute("class", "btn btn-danger ms-3");
 
     // Adiciona os textos aos elementos
@@ -66,7 +78,8 @@ const obterIdAtualLS = () => {
 // Obtem os dados digitados no FORM
 const obterDadosForm = () => {
   const dados = document.getElementsByTagName("input");
-  const pessoa = {
+
+  pessoa = {
     nome: dados[0].value,
     endereco: dados[1].value,
     telefone: dados[2].value,
@@ -74,13 +87,12 @@ const obterDadosForm = () => {
     dataNascimento: dados[4].value,
     id: dados[5].value,
   };
- 
-  return pessoa;
+
 };
 
 // Formata os dados obtidos do FORM
 const formatarDados = () => {
-  const pessoa = obterDadosForm();
+  obterDadosForm();
 
   pessoa.nome = pessoa.nome.toUpperCase();
   pessoa.endereco = pessoa.endereco.toUpperCase();
@@ -89,10 +101,10 @@ const formatarDados = () => {
   return pessoa;
 };
 
-
 // Salva os dados no LocalStorage
 const salvarDados = () => {
   const novaPessoa = formatarDados();
+  let pessoas = obterDadosPessoasLS();
 
   if (novaPessoa.id) {
     pessoas = pessoas.map((p) => {  
@@ -105,13 +117,22 @@ const salvarDados = () => {
   } 
   else {
     novaPessoa.id = obterIdAtualLS();
+  
     pessoas.push(novaPessoa);
+
     localStorage.setItem("idPessoa", obterIdAtualLS() + 1);
   }
 
   localStorage.setItem("pessoas", JSON.stringify(pessoas));
 
+  limparPessoa()
   window.location = "./index.html";
+};
+
+// salva os dados e renderiza lista ao excluir
+const atualizarDados = (novaListaPessoas) => {
+  localStorage.setItem("pessoas", JSON.stringify(novaListaPessoas));
+  renderLista();
 };
 
 // Pega o id do usuario na url
@@ -122,14 +143,23 @@ const obterIdUrl = () => {
 
 // pega os dados da pessoa pelo id
 const pegarDadosPessoaPorId = () => {
+  const pessoas = obterDadosPessoasLS();
+  
   const id = obterIdUrl();
   const pessoa = pessoas.find((p) => p.id == id);
 
   return pessoa;
 };
 
+const excluirPessoaPorId = (id) => {
+  const novaListaPessoas = obterDadosPessoasLS();
+  const indexPessoa = novaListaPessoas.findIndex((p) =>  p.id == id);
+  novaListaPessoas.splice(indexPessoa,1);
+
+  atualizarDados(novaListaPessoas);
+};
+
 const renderForm = () => {
-  pessoas = obterDadosPessoasLS();
   const inputs = document.getElementsByTagName("input");
   const pessoa = pegarDadosPessoaPorId();
 
@@ -140,3 +170,15 @@ const renderForm = () => {
   inputs[4].value = pessoa.dataNascimento;
   inputs[5].value = pessoa.id;
 };
+
+const limparPessoa = () => {
+  pessoa = {
+    id: null,
+    nome: null,
+    endereco: null,
+    telefone: null,
+    email: null,
+    dataNascimento: null
+  }
+} 
+

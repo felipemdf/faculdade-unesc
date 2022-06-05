@@ -1,11 +1,22 @@
-let produtos = [];
+let produto = {
+    id: null,
+    nome: null,
+    marca: null,
+    valor: null
+}
+
+const limparTabela = (tabela) => {
+    tabela.innerHTML = ""
+  }
 
 const renderLista = () => {
     // pega o elemento tbody id="tprodutos"
     const tbprodutos = document.querySelector("#tprodutos");
 
+    limparTabela(tbprodutos);
+
     // Pega todas os produtos cadastradas no LS
-    produtos = obterDadosProdutosLS();
+    const produtos = obterDadosProdutosLS();
 
     produtos.forEach((produto) => {
         // cria o elemento <tr>
@@ -31,7 +42,7 @@ const renderLista = () => {
         // crio o atributo href="#"
         aEdit.setAttribute("href", "./edit.html?id=" + produto.id);
         aEdit.setAttribute("class", "btn btn-warning");
-        aDelete.setAttribute("href", "#");
+        aDelete.setAttribute("onclick", "excluirProdutoPorId(" + produtos.id +")");
         aDelete.setAttribute("class", "btn btn-danger ms-3");
 
         // Adiciona os textos aos elementos
@@ -70,30 +81,32 @@ const obterIdAtualLS = () => {
 // Obtem os dados digitados no FORM
 const obterDadosForm = () => {
     const dados = document.getElementsByTagName("input");
-    const produtos = {
+    produto = {
         nome: dados[0].value,
         marca: dados[1].value,
         valor: dados[2].value,
         id: dados[3].value,
     };
 
-    return produtos;
+    return produto;
 };
+
 
 // Formata os dados obtidos do FORM
 const formatarDados = () => {
-    const produtos = obterDadosForm();
+    obterDadosForm();
 
-    produtos.nome = produtos.nome.toUpperCase();
-    produtos.marca = produtos.marca.toUpperCase();
+    produto.nome = produto.nome.toUpperCase();
+    produto.marca = produto.marca.toUpperCase();
 
-    return produtos;
+    return produto;
 };
 
 
 // Salva os dados no LocalStorage
 const salvarDados = () => {
     const novoProduto = formatarDados();
+    let produtos = obterDadosProdutosLS();
 
     if (novoProduto.id) {
         produtos = produtos.map((p) => {
@@ -114,6 +127,12 @@ const salvarDados = () => {
     window.location = "./index.html";
 };
 
+// salva os dados e renderiza lista ao excluir
+const atualizarDados = (novaListaProdutos) => {
+    localStorage.setItem("produtos", JSON.stringify(novaListaProdutos));
+    renderLista();
+  };
+  
 // Pega o id do usuario na url
 const obterIdUrl = () => {
     const id = new URLSearchParams(window.location.search).get("id");
@@ -122,16 +141,23 @@ const obterIdUrl = () => {
 
 // pega os dados dos produtos pelo id
 const pegarDadosProdutosPorId = () => {
-    console.log("Log pegar dados dos produtos pelo id");
-    console.log(produtos);
+    const produtos = obterDadosProdutosLS();
     const id = obterIdUrl();
     const produto = produtos.find((p) => p.id == id);
 
     return produto;
 };
 
+const excluirProdutoPorId = (id) => {
+    const novaListaProdutos = obterDadosProdutosLS();
+    const indexProduto = novaListaProdutos.findIndex((p) =>  p.id == id);
+    novaListaProdutos.splice(indexProduto, 1);
+  
+    atualizarDados(novaListaProdutos);
+  };
+
 const renderForm = () => {
-    produtos = obterDadosProdutosLS();
+    const produtos = obterDadosProdutosLS();
     const inputs = document.getElementsByTagName("input");
     const produto = pegarDadosProdutosPorId();
 

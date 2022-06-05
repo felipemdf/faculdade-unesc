@@ -11,24 +11,31 @@
 </head>
 
 <body onload="renderForm()">
-    <div id="main">
-        <h1>Editar Produtos</h1>
+    <div id="main" class="container">
+        <h1 class="text-center mb-4 mt-4">Editar Produtos</h1>
         <div id="form">
-            <div id="Nome">
-                <input type="text" id="inNome" placeholder="Nome">
+            <div id="Nome" class="col-12 mb-3">
+                <label class="input-group-text">Nome</label>
+                <input type="text" id="inNome" class="form-control">
             </div>
-            <div id="Marca">
-                <input type="text" id="inMarca" placeholder="Marca">
+
+            <div id="Marca" class="col-12 mb-3">
+                <label class="input-group-text">Marca</label>
+                <input type="text" id="inMarca" class="form-control">
             </div>
-            <div id="Valor">
-                <input type="number" id="inValor" placeholder="Valor">
+
+            <div id="Valor" class="col-12 mb-3">
+                <label class="input-group-text">Valor</label>
+                <input type="number" min="0.00" step="0.05" value="1.00" id="inValor" class="form-control">
             </div>
+
             <div id="dtId">
                 <input type="hidden" id="inDtId">
             </div>
-            <div id="btnSave">
-                <button onclick="salvarDados()" id="inBtnSave">Editar</button>
-                <a href="./index.html">Voltar</a>
+
+            <div id="btnSave" class="col-12 mt-4">
+                <button class="btn btn-primary" onclick="salvarDados()" id="inBtnSave">Salvar</button>
+                <a class="btn btn-secondary" href="./index.html">Voltar</a>
             </div>
         </div>
     </div>
