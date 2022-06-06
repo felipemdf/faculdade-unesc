@@ -103,11 +103,34 @@ const formatarDados = () => {
 };
 
 
+const validarDadosForm = (novoProduto) => {
+    if(!novoProduto.nome){
+      window.alert("O nome do produto não foi informado");
+      return false;
+    }
+  
+    if(!novoProduto.marca){
+      window.alert("O nome da marca não foi informado");
+      return false;
+    }
+  
+    if(!novoProduto.valor){
+      window.alert("O valor do produto não foi informado");
+      return false;
+    }
+  
+  
+    return true;
+};
+
 // Salva os dados no LocalStorage
 const salvarDados = () => {
     const novoProduto = formatarDados();
     let produtos = obterDadosProdutosLS();
 
+    if(!validarDadosForm(novoProduto))
+        return;
+        
     if (novoProduto.id) {
         produtos = produtos.map((p) => {
             if ((p.id == novoProduto.id)) {

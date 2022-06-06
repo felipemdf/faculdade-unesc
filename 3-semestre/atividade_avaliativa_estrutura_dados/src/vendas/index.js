@@ -106,11 +106,31 @@ const obterDadosForm = () => {
     return venda;
 };
 
+const validarDadosForm = (novaVenda) => {
+    if(!novaVenda.cliente){
+      window.alert("O nome do cliente não foi informado");
+      return false;
+    }
+
+
+    if(novaVenda.produtos.length == 0){
+      window.alert("Não foi informado os produtos da venda");
+      return false;
+    }
+  
+  
+    return true;
+};
+
 
 // Salva os dados no LocalStorage
 const salvarDados = () => {
     const novaVenda = obterDadosForm();
     let vendas = obterDadosVendasLS();
+
+    if(!validarDadosForm(novaVenda))
+        return;
+
     if (novaVenda.id) {
         vendas = vendas.map((v) => {
             if ((v.id == novaVenda.id)) {
@@ -235,7 +255,7 @@ const adicionarProduto = () => {
     novoProduto.quantidade = parseFloat(quantidade.value);
 
     const indexProdutoVenda = venda.produtos.findIndex((p) => p.id == novoProduto.id);
-    debugger;
+
     if(indexProdutoVenda != -1)
         venda.produtos[indexProdutoVenda].quantidade += parseFloat(novoProduto.quantidade);
     else

@@ -101,10 +101,42 @@ const formatarDados = () => {
   return pessoa;
 };
 
+const validarDadosForm = (novaPessoa) => {
+  if(!pessoa.nome){
+    window.alert("O nome da pessoa não foi informado");
+    return false;
+  }
+
+  if(!novaPessoa.endereco){
+    window.alert("O  endereço não foi informado");
+    return false;
+  }
+
+  if(!novaPessoa.telefone){
+    window.alert("O telefone não foi informado");
+    return false;
+  }
+
+  if(!novaPessoa.email){
+    window.alert("O email não foi informado");
+    return false;
+  }
+
+  if(!novaPessoa.dataNascimento){
+    window.alert("A data de nascimento não foi informada");
+    return false;
+  }
+
+  return true;
+};
+
 // Salva os dados no LocalStorage
 const salvarDados = () => {
   const novaPessoa = formatarDados();
   let pessoas = obterDadosPessoasLS();
+
+  if(!validarDadosForm(novaPessoa))
+  return;
 
   if (novaPessoa.id) {
     pessoas = pessoas.map((p) => {  
@@ -117,9 +149,8 @@ const salvarDados = () => {
   } 
   else {
     novaPessoa.id = obterIdAtualLS();
-  
-    pessoas.push(novaPessoa);
 
+    pessoas.push(novaPessoa);
     localStorage.setItem("idPessoa", obterIdAtualLS() + 1);
   }
 
